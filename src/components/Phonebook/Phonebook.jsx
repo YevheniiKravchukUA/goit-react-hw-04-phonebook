@@ -4,27 +4,11 @@ import { PhonebookForm } from 'components/Phonebook/PhonebookForm/PhonebookForm'
 import { ContactsList } from 'components/Phonebook/ContactsList/ContactsList';
 import { Filter } from 'components/Phonebook/Filter/Filter';
 
-import { getContactsFromLocaleStorage } from 'js/utils/getContactsFromLocaleStorage';
-import { setContactsToLocaleStorage } from 'js/utils/setContactsToLocalStorage';
+import { useLocaleStorage } from 'hooks/useLocaleStorage';
 
 export function Phonebook() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useLocaleStorage([]);
   const [filter, setFilter] = useState('');
-  const firstRender = useRef(true);
-
-  useEffect(() => {
-    if (window.localStorage.contacts) {
-      setContacts(getContactsFromLocaleStorage());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (firstRender.current) {
-      firstRender.current = false;
-      return;
-    }
-    setContactsToLocaleStorage(contacts);
-  }, [contacts]);
 
   function addContact(contact) {
     const itsAlreadyAdded = contacts.find(el => el.name === contact.name);
