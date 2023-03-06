@@ -25,9 +25,8 @@ export function PhonebookForm({ addContact }) {
 
   function onFormSubmit(e) {
     e.preventDefault();
-    const contact = { id: name, name: name, number: number };
 
-    addContact(contact);
+    addContact({ name, number });
     clearFormInputs();
   }
 

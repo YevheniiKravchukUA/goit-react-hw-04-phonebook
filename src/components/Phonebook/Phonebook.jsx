@@ -1,3 +1,4 @@
+import { UUID } from 'uuidjs';
 import { useState } from 'react';
 import { Section } from 'components/Section/Section';
 import { PhonebookForm } from 'components/Phonebook/PhonebookForm/PhonebookForm';
@@ -10,11 +11,13 @@ export function Phonebook() {
   const [contacts, setContacts] = useLocaleStorage([]);
   const [filter, setFilter] = useState('');
 
-  function addContact(contact) {
-    const itsAlreadyAdded = contacts.find(el => el.name === contact.name);
+  function addContact({ name, number }) {
+    const itsAlreadyAdded = contacts.find(el => el.name === name);
+    const id = UUID.generate();
+    const contact = { id, name, number };
 
     if (itsAlreadyAdded) {
-      window.alert(`${contact.name} is already in contacts.`);
+      window.alert(`${name} is already in contacts.`);
       return;
     } else {
       setContacts(ps => [...ps, contact]);
