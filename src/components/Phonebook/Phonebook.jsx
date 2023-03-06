@@ -43,17 +43,18 @@ export function Phonebook() {
       <Section title="Phonebook">
         <PhonebookForm addContact={addContact} />
       </Section>
-      {contacts.length > 0 ? (
-        <Section title="Contacts">
-          <Filter filterValue={filter} onFilterChange={onFilterChange} />
-          <ContactsList
-            contacts={filterContacts()}
-            deleteContact={deleteContact}
-          />
-        </Section>
-      ) : (
-        'Please, add first contact!'
-      )}
+      <Section title="Contacts">
+        {contacts.length === 0 && 'Please, add first contact!'}
+        {contacts.length > 0 && (
+          <>
+            <Filter filterValue={filter} onFilterChange={onFilterChange} />
+            <ContactsList
+              contacts={filterContacts()}
+              deleteContact={deleteContact}
+            />
+          </>
+        )}
+      </Section>
     </>
   );
 }
